@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Project Cycle Quiz - Basics of Internet</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    padding: 20px;
+}
+.quiz-box {
+    background: #fff;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+    border-radius: 8px;
+}
+.question {
+    margin-bottom: 15px;
+}
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+#result {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+<h2>AI Project Cycle Quiz  
+<br>Class VII – Basics of Internet</h2>
+
+<div id="quiz"></div>
+
+<button onclick="prevPage()">Previous</button>
+<button onclick="nextPage()">Next</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+const questions = [
+ {q:"1. What is the Internet?", a:["A computer","A global network","A software","A website"], c:1},
+ {q:"2. Which device is required to access the Internet?", a:["Printer","Scanner","Modem","Speaker"], c:2},
+ {q:"3. What does WWW stand for?", a:["World Web Wide","Wide World Web","World Wide Web","Web World Wide"], c:2},
+ {q:"4. Which is a web browser?", a:["Google","Chrome","Internet","Website"], c:1},
+ {q:"5. What is an email account used for?", a:["Playing games","Sending messages","Drawing","Typing"], c:1},
+ {q:"6. Which symbol is used in email address?", a:["#","@","$","%"], c:1},
+ {q:"7. Creating an account requires?", a:["Username & Password","Only name","Only email","Only phone"], c:0},
+ {q:"8. Which is a strong password?", a:["12345","password","Ab@123","name"], c:2},
+ {q:"9. AI Project Cycle has how many stages?", a:["2","3","4","5"], c:2},
+ {q:"10. Data Collection is a stage of?", a:["Internet","AI Project Cycle","Browser","Email"], c:1},
+
+ {q:"11. What is a username?", a:["Secret code","User identity","Email","Password"], c:1},
+ {q:"12. Which information should NOT be shared online?", a:["Name","Hobby","Password","City"], c:2},
+ {q:"13. Google is an example of?", a:["Browser","Search Engine","Website","Email"], c:1},
+ {q:"14. Which is used to create an online account?", a:["Login form","Table","Chart","Image"], c:0},
+ {q:"15. Internet safety means?", a:["Fast browsing","Being careful online","Playing games","Using AI"], c:1},
+ {q:"16. Which is a valid email?", a:["abc.com","abc@gmail","abc@gmail.com","abc@.com"], c:2},
+ {q:"17. Password should be?", a:["Easy","Shared","Strong","Same"], c:2},
+ {q:"18. Which is part of AI Project Cycle?", a:["Model Training","Drawing","Typing","Printing"], c:0},
+ {q:"19. Internet helps in?", a:["Communication","Cooking","Sleeping","Running"], c:0},
+ {q:"20. Logging out is important for?", a:["Fun","Speed","Security","Internet"], c:2}
+];
+
+let currentPage = 0;
+const perPage = 10;
+let answers = new Array(20);
+
+function loadQuiz() {
+    const quizDiv = document.getElementById("quiz");
+    quizDiv.innerHTML = "";
+    let start = currentPage * perPage;
+    let end = start + perPage;
+
+    for (let i = start; i < end && i < questions.length; i++) {
+        quizDiv.innerHTML += `
+        <div class="question">
+            <p>${questions[i].q}</p>
+            ${questions[i].a.map((opt, index) =>
+                `<input type="radio" name="q${i}" value="${index}"
+                ${answers[i] == index ? "checked" : ""}>
+                ${opt}<br>`).join("")}
+        </div>`;
+    }
+}
+
+function nextPage() {
+    saveAnswers();
+    if (currentPage < 1) {
+        currentPage++;
+        loadQuiz();
+    } else {
+        showResult();
+    }
+}
+
+function prevPage() {
+    saveAnswers();
+    if (currentPage > 0) {
+        currentPage--;
+        loadQuiz();
+    }
+}
+
+function saveAnswers() {
+    questions.forEach((_, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) answers[i] = Number(selected.value);
+    });
+}
+
+function showResult() {
+    let score = 0;
+    answers.forEach((ans, i) => {
+        if (ans === questions[i].c) score++;
+    });
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerText =
+        "Your Score: " + score + " / 20";
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>

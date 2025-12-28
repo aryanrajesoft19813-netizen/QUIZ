@@ -1,0 +1,169 @@
+Below is a **complete HTML quiz code** based on your **same topic**, but updated exactly as you asked:
+
+✅ **20 questions**
+✅ **Questions shown ONE BY ONE**
+✅ **Each question has:**
+
+* **Next button**
+* **Previous button**
+* **Skip button**
+  ✅ **Answer saved automatically**
+  ✅ **Score shown at the end**
+  ✅ **Class VII friendly**
+
+👉 Copy and save as **`quiz.html`**, then open in a browser.
+
+---
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Project Cycle Quiz - Class VII</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f3;
+    padding: 20px;
+}
+.quiz-box {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 8px;
+}
+button {
+    padding: 8px 14px;
+    margin: 5px;
+    cursor: pointer;
+}
+#result {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box">
+<h2>AI Project Cycle Quiz  
+<br>Class VII – Basics of Internet</h2>
+
+<div id="questionBox"></div>
+
+<button onclick="previousQuestion()">Previous</button>
+<button onclick="skipQuestion()">Skip</button>
+<button onclick="nextQuestion()">Next</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+const questions = [
+ {q:"What is the Internet?", a:["A computer","A global network","A software","A website"], c:1},
+ {q:"Which device is required to access the Internet?", a:["Printer","Scanner","Modem","Speaker"], c:2},
+ {q:"What does WWW stand for?", a:["World Web Wide","Wide World Web","World Wide Web","Web World Wide"], c:2},
+ {q:"Which is a web browser?", a:["Google","Chrome","Internet","Website"], c:1},
+ {q:"What is an email account used for?", a:["Playing games","Sending messages","Drawing","Typing"], c:1},
+ {q:"Which symbol is used in email address?", a:["#","@","$","%"], c:1},
+ {q:"Creating an account requires?", a:["Username & Password","Only name","Only email","Only phone"], c:0},
+ {q:"Which is a strong password?", a:["12345","password","Ab@123","name"], c:2},
+ {q:"AI Project Cycle has how many stages?", a:["2","3","4","5"], c:2},
+ {q:"Data Collection is a stage of?", a:["Internet","AI Project Cycle","Browser","Email"], c:1},
+ {q:"What is a username?", a:["Secret code","User identity","Email","Password"], c:1},
+ {q:"Which information should NOT be shared online?", a:["Name","Hobby","Password","City"], c:2},
+ {q:"Google is an example of?", a:["Browser","Search Engine","Website","Email"], c:1},
+ {q:"Which is used to create an online account?", a:["Login form","Table","Chart","Image"], c:0},
+ {q:"Internet safety means?", a:["Fast browsing","Being careful online","Playing games","Using AI"], c:1},
+ {q:"Which is a valid email?", a:["abc.com","abc@gmail","abc@gmail.com","abc@.com"], c:2},
+ {q:"Password should be?", a:["Easy","Shared","Strong","Same"], c:2},
+ {q:"Which is part of AI Project Cycle?", a:["Model Training","Drawing","Typing","Printing"], c:0},
+ {q:"Internet helps in?", a:["Communication","Cooking","Sleeping","Running"], c:0},
+ {q:"Logging out is important for?", a:["Fun","Speed","Security","Internet"], c:2}
+];
+
+let current = 0;
+let answers = new Array(questions.length);
+
+function loadQuestion() {
+    const q = questions[current];
+    let html = `<p><b>Question ${current + 1} of ${questions.length}</b></p>`;
+    html += `<p>${q.q}</p>`;
+
+    q.a.forEach((opt, i) => {
+        html += `
+        <input type="radio" name="option" value="${i}"
+        ${answers[current] === i ? "checked" : ""}>
+        ${opt}<br>`;
+    });
+
+    document.getElementById("questionBox").innerHTML = html;
+}
+
+function saveAnswer() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    if (selected) {
+        answers[current] = Number(selected.value);
+    }
+}
+
+function nextQuestion() {
+    saveAnswer();
+    if (current < questions.length - 1) {
+        current++;
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function previousQuestion() {
+    saveAnswer();
+    if (current > 0) {
+        current--;
+        loadQuestion();
+    }
+}
+
+function skipQuestion() {
+    if (current < questions.length - 1) {
+        current++;
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    let score = 0;
+    answers.forEach((ans, i) => {
+        if (ans === questions[i].c) score++;
+    });
+
+    document.getElementById("questionBox").innerHTML = "";
+    document.getElementById("result").innerText =
+        "Your Score: " + score + " / " + questions.length;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
+```
+
+---
+
+### Want upgrades?
+
+✔ Timer per question
+✔ Show **correct answer after submission**
+✔ Teacher / student version
+✔ Printable questions sheet
+
+Just tell me 😊
